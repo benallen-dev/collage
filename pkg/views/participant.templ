@@ -1,10 +1,26 @@
 
 package views
 
+// Looks like svelte but is actually just poorly formed HTML
 templ Participant() {
 	@base() {
-		<div>
-			<h1>Participant view</h1>
-		</div>
+    <script>
+        htmx.on('#form', 'htmx:xhr:progress', function(evt) {
+          htmx.find('#progress').setAttribute('value', evt.detail.loaded/evt.detail.total * 100)
+        });
+    </script>
+
+		<main>
+			<h1>Upload je foto</h1>
+			<div id="image-preview">
+			</div>
+
+			<form id='form' hx-encoding='multipart/form-data' hx-post='/api/submit' hx-target="#image-preview" hx-swap="innerHTML">
+				<input required type="file" name="image" />
+				<input required type="text" name="name" placeholder="Jouw naam" />
+				<button>Verstuur</button>
+				<progress id='progress' value='0' max='100'></progress>
+			</form>
+		</main>
 	}
 }
