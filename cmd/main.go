@@ -1,43 +1,26 @@
 package main
 
 import (
-	"io"
-	"html/template"
 	"net/http"
-
-	"github.com/labstack/echo/v4"
+	"log"
 
 	"github.com/benallen-dev/collage/pkg/util"
+	"github.com/benallen-dev/collage/pkg/views"
 )
 
-func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
-	return t.templates.ExecuteTemplate(w, name, data)
-}
-
-type Template struct {
-	templates *template.Template
-}
-
 func main() {
-	t := &Template{
-		templates: template.Must(template.ParseGlob("views/*.html")),
+
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		views.Index().Render(r.Context(), w)
+	})
+
+	http.HandleFunc("/name", func(w http.ResponseWriter, r *http.Request) {
+		views.Hello(util.GetRandomName()).Render(r.Context(), w)
+	})
+
+	log.Println("Listening on :1323...")
+	err := http.ListenAndServe(":1323", nil)
+	if err != nil {
+		log.Fatal(err);
 	}
-
-	e := echo.New()
-	e.Renderer = t
-	e.Static("/", "static")
-
-	e.PUT("/", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, World!")
-	})
-
-	e.GET("/name", func(c echo.Context) error {
-		return c.Render(http.StatusOK, "name", util.GetRandomName())
-	})
-
-	e.GET("/foo", func (c echo.Context) error {
-		return c.String(http.StatusOK, "foo")
-	})
-
-	e.Logger.Fatal(e.Start(":1323"))
 }

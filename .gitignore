@@ -22,3 +22,6 @@ go.work
 
 # Output of air
 tmp/
+
+# Output of templ
+*_templ.go
