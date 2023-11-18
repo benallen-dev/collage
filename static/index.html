@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Home</title>
+	<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+	<script src="https://unpkg.com/htmx.org@1.9.6"
+		integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni"
+		crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<h1>HTMX malarkey</h1>
+	<button hx-trigger="click" hx-get="/name" hx-swap="innerHTML" hx-target="#namebox">Click this button to see your name</button>
+	<div id="namebox"></div>	
+</body>
+
+</html>
