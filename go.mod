@@ -1,4 +1,4 @@
-module github.com/benallen/collage
+module github.com/benallen-dev/collage
 
 go 1.21.1
 

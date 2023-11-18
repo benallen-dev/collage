@@ -8,13 +8,20 @@ Presenters can also reset the session.
 ## How to run
 
 ```sh
-$ go run server.go
+$ go run cmd/main.go
 ```
 
 Then go to `localhost:1323` in your browser.
 
-You could also build a binary with `go build` and run that.
+## Running in development
+
+Install [Air - Live reload for Go apps](https://github.com/cosmtrek/air), then
+
+```sh
+$ air
+```
 
 ## Simple.css
 
 Simple.css was the first no-class drop-in stylesheet I found and it looks pretty good.
+

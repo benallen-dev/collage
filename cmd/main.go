@@ -2,11 +2,12 @@ package main
 
 import (
 	"io"
-	"math/rand"
 	"html/template"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
+
+	"github.com/benallen-dev/collage/pkg/util"
 )
 
 func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
@@ -15,23 +16,6 @@ func (t *Template) Render(w io.Writer, name string, data interface{}, c echo.Con
 
 type Template struct {
 	templates *template.Template
-}
-
-func getRandomName() string {
-	names := [7]string {
-		"Dave",
-		"Peter",
-		"Jesus",
-		"Mary",
-		"Helen",
-		"Alice",
-		"Bob",
-	}
-
-	// make random number
-	idx := rand.Intn(7)
-	// return that element from the list
-	return names[idx]
 }
 
 func main() {
@@ -48,7 +32,7 @@ func main() {
 	})
 
 	e.GET("/name", func(c echo.Context) error {
-		return c.Render(http.StatusOK, "name", getRandomName())
+		return c.Render(http.StatusOK, "name", util.GetRandomName())
 	})
 
 	e.GET("/foo", func (c echo.Context) error {
