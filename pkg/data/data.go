@@ -7,7 +7,11 @@ import (
 type User struct {
 	Name      string
 	SessionId string
-	FileName  string
+	ImageUrl  string
+}
+
+func (user *User) String() string {
+	return user.Name + " (" + user.SessionId + ")" + " - " + user.ImageUrl
 }
 
 type SharedData struct {
@@ -38,4 +42,14 @@ func (sd *SharedData) UpdateUser(user User) {
 	sd.Lock()
 	defer sd.Unlock()
 	sd.SharedData[user.SessionId] = user
+}
+
+func (sd *SharedData) GetUsers() []User {
+	sd.Lock()
+	defer sd.Unlock()
+	users := make([]User, 0, len(sd.SharedData))
+	for _, user := range sd.SharedData {
+		users = append(users, user)
+	}
+	return users
 }

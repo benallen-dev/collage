@@ -1,9 +1,17 @@
 package views
 
-templ Presenter() {
+import (
+	"github.com/benallen-dev/collage/pkg/data"
+)
+
+templ Presenter(userData *data.SharedData) {
 	@base() {
 		<div>
 			<h1>Presenter view</h1>
+			for _, user := range userData.GetUsers() {
+				<h2>{user.Name}</h2>
+				<p>{user.SessionId}</p>
+			}
 		</div>
 	}
 }

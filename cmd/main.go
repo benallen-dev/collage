@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"fmt"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -17,9 +18,6 @@ import (
 )
 
 func init() {
-
-	// Create the shared data object
-
 
 	// Create the images directory if it doesn't exist
 	if _, err := os.Stat("images"); os.IsNotExist(err) {
@@ -49,7 +47,7 @@ func main() {
 	r.Use(middleware.URLFormat)
 
 	r.Get("/", templ.Handler(views.Index()).ServeHTTP)
-	r.Get("/presenter", templ.Handler(views.Presenter()).ServeHTTP)
+	r.Get("/presenter", templ.Handler(views.Presenter(userData)).ServeHTTP)
 	r.Get("/participant", templ.Handler(views.Participant(uuid.NewString())).ServeHTTP)
 
 	// Serve static images
@@ -61,6 +59,11 @@ func main() {
 	r.Route("/api", func(r chi.Router) {
 		r.Post("/submit", func (w http.ResponseWriter, r *http.Request) {
 			handlers.SubmitImage(w, r, userData)
+		})
+
+		r.Get("/users", func (w http.ResponseWriter, r *http.Request) {
+			users := userData.GetUsers()
+			fmt.Fprintf(w, "%v", users)
 		})
 	})
 

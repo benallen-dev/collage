@@ -52,8 +52,8 @@ func SubmitImage(w http.ResponseWriter, r *http.Request, userData *data.SharedDa
 	// OK, we're all good, let's see if this sessionId already has a file
 	// associated with it. If it does, delete it.
 	user, ok := userData.GetUser(sessionId)
-	if ok && user.FileName != "" {
-		if err := os.Remove(user.FileName); err != nil {
+	if ok && user.ImageUrl != "" {
+		if err := os.Remove(user.ImageUrl); err != nil {
 			log.Println("error deleting file:", err)
 			w.WriteHeader(http.StatusInternalServerError)
 			return
@@ -80,7 +80,7 @@ func SubmitImage(w http.ResponseWriter, r *http.Request, userData *data.SharedDa
 	newUser := data.User{
 		Name: name,
 		SessionId: sessionId,
-		FileName: imagepath,
+		ImageUrl: imagepath,
 	}
 	
 	userData.UpdateUser(newUser)
