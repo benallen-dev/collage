@@ -1,8 +1,7 @@
-
 package views
 
 // Looks like svelte but is actually just poorly formed HTML
-templ Participant() {
+templ Participant(sessionId string) {
 	@base() {
     <script>
         htmx.on('#form', 'htmx:xhr:progress', function(evt) {
@@ -16,6 +15,7 @@ templ Participant() {
 			</div>
 
 			<form id='form' hx-encoding='multipart/form-data' hx-post='/api/submit' hx-target="#image-preview" hx-swap="innerHTML">
+				<input type="hidden" name="sessionId" value={sessionId} />
 				<input required type="file" name="image" />
 				<input required type="text" name="name" placeholder="Jouw naam" />
 				<button>Verstuur</button>
