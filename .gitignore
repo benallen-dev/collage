@@ -28,3 +28,6 @@ tmp/
 
 # image storage dir
 images/
+
+node_modules/
+

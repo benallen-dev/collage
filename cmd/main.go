@@ -79,8 +79,8 @@ func main() {
 		
 		r.Post("/submit", handlers.SubmitImage)
 
-		// r.Post("/reset", handlers.Reset)
-		// r.Post("/delete/{sessionId}", handlers.Delete)
+		r.Post("/reset", handlers.Reset)
+		r.Post("/delete/{sessionId}", handlers.DeleteUser)
 	})
 
 	log.Println("Listening on :1323...")

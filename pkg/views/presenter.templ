@@ -3,8 +3,17 @@ package views
 templ Presenter() {
 	@base() {
 		<div>
-			<h1>Presenter view</h1>
-			<div hx-get="/api/poll" hx-swap="innerHTML" hx-trigger="load, every 500ms">
+			<div class="rounded bg-neutral-50 p-4 my-4">
+				<h2>Presenter controls</h2>
+				<div class="">
+					<button
+						class="border rounded bg-red-700 hover:bg-red-800 font-bold text-white px-6 py-2"
+						hx-post="/api/reset" 
+						hx-swap="none">Reset
+						</button>
+				</div>
+			</div>
+			<div id="image-container" class="grid grid-cols-2 gap-8" hx-get="/api/poll" hx-swap="innerHTML" hx-trigger="load, every 1s">
 				Loading images...
 			</div>
 		</div>

@@ -1,0 +1,16 @@
+{
+  "name": "collage",
+  "version": "1.0.0",
+  "description": "A basic web app for collecting images during a presentation or meeting.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"build": "tailwindcss build -i static/index.css -o static/tailwind.css",
+    "watch": "tailwindcss build -i static/index.css -o static/tailwind.css --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.3.5"
+  }
+}

@@ -7,19 +7,14 @@ templ base() {
 	
 	<head>
 		<title>Collage</title>
-		<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css"></link>
+		<link rel="stylesheet" href="/tailwind.css"></link>
+<!--		<link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css"></link> -->
 		<script src="https://unpkg.com/htmx.org@1.9.6"
 			integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni"
 			crossorigin="anonymous"></script>
-		<style>
-			.error {
-				color: red;
-			}
-		</style>
-
 	</head>
 	
-	<body>
+	<body class="bg-stone-600 p-8">
 		{ children... }
 	</body>
 	</html>
