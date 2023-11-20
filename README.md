@@ -5,9 +5,14 @@ Users can paste images and add their name to their submissions. Presenters can s
 
 Presenters can also reset the session.
 
+## Requirements
+
+You must have [Go templ](https://templ.guide) installed. Templ is used to render jsx-like templates into code that returns HTML.
+
 ## How to run
 
 ```sh
+$ templ generate
 $ go run cmd/main.go
 ```
 
