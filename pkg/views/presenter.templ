@@ -4,13 +4,14 @@ import (
 	"github.com/benallen-dev/collage/pkg/data"
 )
 
-templ Presenter(userData *data.SharedData) {
+templ Presenter(users []data.User) {
 	@base() {
 		<div>
 			<h1>Presenter view</h1>
-			for _, user := range userData.GetUsers() {
-				<h2>{user.Name}</h2>
-				<p>{user.SessionId}</p>
+			for _, user := range users {
+				<h2>{ user.Name }</h2>
+				<p>{ user.SessionId }</p>
+				<img src={ user.ImageUrl }></img>
 			}
 		</div>
 	}
