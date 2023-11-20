@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"log"
-	"fmt"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -69,7 +68,10 @@ func main() {
 	// Serve static images
 	workDir, _ := os.Getwd()
 	filesDir := http.Dir(filepath.Join(workDir, "images"))
-	handlers.FileServer(r, "/images", filesDir)
+	staticDir := http.Dir(filepath.Join(workDir, "static"))
+
+	handlers.FileServer(r, "/", staticDir) // Used for css
+	handlers.FileServer(r, "/images", filesDir) // Used for images
 
 	// API routes
 	r.Route("/api", func(r chi.Router) {
