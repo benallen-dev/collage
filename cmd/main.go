@@ -64,19 +64,7 @@ func main() {
 
 	r.Get("/", templ.Handler(views.Index()).ServeHTTP)
 	r.Get("/participant", templ.Handler(views.Participant(uuid.NewString())).ServeHTTP)
-
-	r.Get("/presenter", func (w http.ResponseWriter, r *http.Request) {
-		// This is probably not the best way to do this but meh whatever IT WORKS BABY
-
-		// Get the shared data from the request context
-		userData := r.Context().Value("userData").(*data.SharedData)
-		// Get the users from the shared data
-		users := userData.GetUsers()
-		// Get the presenter view
-		presenterView := views.Presenter(users)
-		// Render the presenter view
-		templ.Handler(presenterView).ServeHTTP(w, r)	
-	})
+	r.Get("/presenter", templ.Handler(views.Presenter()).ServeHTTP)
 
 	// Serve static images
 	workDir, _ := os.Getwd()
@@ -85,14 +73,12 @@ func main() {
 
 	// API routes
 	r.Route("/api", func(r chi.Router) {
-		r.Post("/submit", func (w http.ResponseWriter, r *http.Request) {
-			handlers.SubmitImage(w, r, userData)
-		})
+		r.Get("/poll", handlers.PollImages)
+		
+		r.Post("/submit", handlers.SubmitImage)
 
-		r.Get("/users", func (w http.ResponseWriter, r *http.Request) {
-			users := r.Context().Value("userData").(*data.SharedData).GetUsers()
-			fmt.Fprintf(w, "%v", users)
-		})
+		// r.Post("/reset", handlers.Reset)
+		// r.Post("/delete/{sessionId}", handlers.Delete)
 	})
 
 	log.Println("Listening on :1323...")

@@ -1,0 +1,16 @@
+
+package views
+
+import (
+	"github.com/benallen-dev/collage/pkg/data"
+)
+
+templ Images(users []data.User) {
+	for _, user := range users {
+		<div>
+			<h2>{ user.Name }</h2>
+			<img src={ user.ImageUrl }></img>
+		</div>
+	}
+
+}

@@ -15,7 +15,10 @@ import (
 	"github.com/benallen-dev/collage/pkg/data"
 )
 
-func SubmitImage(w http.ResponseWriter, r *http.Request, userData *data.SharedData) {
+func SubmitImage(w http.ResponseWriter, r *http.Request) {
+
+	userData := r.Context().Value("userData").(*data.SharedData)
+
 	// This is just a toy app so I'm not going to be elaborate with the error handling.
 	name := r.PostFormValue("name")
 	sessionId := r.PostFormValue("sessionId")

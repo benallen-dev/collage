@@ -1,18 +1,12 @@
 package views
 
-import (
-	"github.com/benallen-dev/collage/pkg/data"
-)
-
-templ Presenter(users []data.User) {
+templ Presenter() {
 	@base() {
 		<div>
 			<h1>Presenter view</h1>
-			for _, user := range users {
-				<h2>{ user.Name }</h2>
-				<p>{ user.SessionId }</p>
-				<img src={ user.ImageUrl }></img>
-			}
+			<div hx-get="/api/poll" hx-swap="innerHTML" hx-trigger="load, every 500ms">
+				Loading images...
+			</div>
 		</div>
 	}
 }
