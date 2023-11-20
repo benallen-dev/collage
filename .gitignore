@@ -29,5 +29,7 @@ tmp/
 # image storage dir
 images/
 
+# tailwindcss
 node_modules/
+static/tailwind.css
 
