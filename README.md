@@ -9,9 +9,12 @@ Presenters can also reset the session.
 
 You must have [Go templ](https://templ.guide) installed. Templ is used to render jsx-like templates into code that returns HTML.
 
+##
+
 ## How to run
 
 ```sh
+$ pnpm i && pnpm build
 $ templ generate
 $ go run cmd/main.go
 ```
@@ -25,6 +28,8 @@ Install [Air - Live reload for Go apps](https://github.com/cosmtrek/air), then
 ```sh
 $ air
 ```
+
+TODO: Add tailwind build step to air
 
 ## Simple.css
 
