@@ -61,8 +61,7 @@ func main() {
 	r.Use(middleware.URLFormat)
 	r.Use(curryMiddleware(userData)) // now we should have userData on the r.Context() object
 
-	r.Get("/", templ.Handler(views.Index()).ServeHTTP)
-	r.Get("/participant", templ.Handler(views.Participant(uuid.NewString())).ServeHTTP)
+	r.Get("/", templ.Handler(views.Participant(uuid.NewString())).ServeHTTP)
 	r.Get("/presenter", templ.Handler(views.Presenter()).ServeHTTP)
 
 	// Serve static images

@@ -1,10 +1,12 @@
 package handlers
 
 import (
-	"fmt"
 	"net/http"
+
+	"github.com/benallen-dev/collage/pkg/data"
 )
 
 func Reset(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("RESET BUTTON PRESSED")
+	userData := r.Context().Value("userData").(*data.SharedData)
+	userData.Reset()
 }

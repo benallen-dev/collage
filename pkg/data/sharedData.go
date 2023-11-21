@@ -38,3 +38,9 @@ func (sd *SharedData) GetUsers() []User {
 	}
 	return users
 }
+
+func (sd *SharedData) Reset() {
+	sd.Lock()
+	defer sd.Unlock()
+	sd.SharedData = make(map[string]User)
+}
