@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -12,9 +13,9 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/google/uuid"
 
+	"github.com/benallen-dev/collage/pkg/data"
 	"github.com/benallen-dev/collage/pkg/handlers"
 	"github.com/benallen-dev/collage/pkg/views"
-	"github.com/benallen-dev/collage/pkg/data"
 )
 
 func init() {
@@ -38,12 +39,12 @@ func init() {
 
 // Middleware to add a shared variable to request context
 func curryMiddleware(userData *data.SharedData) func(next http.Handler) http.Handler {
-	return func (next http.Handler) http.Handler {
+	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			// Add your shared variable here (e.g., sharedVar := "someValue")
 			// Create a context with the shared variable
-			ctx := context.WithValue(r.Context(), "userData" , userData)
-	
+			ctx := context.WithValue(r.Context(), "userData", userData)
+
 			// Pass the context with the shared variable to the next handler
 			next.ServeHTTP(w, r.WithContext(ctx))
 		})
@@ -51,7 +52,7 @@ func curryMiddleware(userData *data.SharedData) func(next http.Handler) http.Han
 }
 
 func main() {
-	
+
 	userData := data.NewSharedData()
 	r := chi.NewRouter()
 
@@ -61,7 +62,15 @@ func main() {
 	r.Use(middleware.URLFormat)
 	r.Use(curryMiddleware(userData)) // now we should have userData on the r.Context() object
 
-	r.Get("/", templ.Handler(views.Participant(uuid.NewString())).ServeHTTP)
+	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		uuid := uuid.NewString()
+		fmt.Println("New user: " + uuid)
+
+		newView := views.Participant(uuid)
+
+		templ.Handler(newView).ServeHTTP(w, r)
+	})
+
 	r.Get("/presenter", templ.Handler(views.Presenter()).ServeHTTP)
 
 	// Serve static images
@@ -69,13 +78,13 @@ func main() {
 	filesDir := http.Dir(filepath.Join(workDir, "images"))
 	staticDir := http.Dir(filepath.Join(workDir, "static"))
 
-	handlers.FileServer(r, "/", staticDir) // Used for css
+	handlers.FileServer(r, "/", staticDir)      // Used for css
 	handlers.FileServer(r, "/images", filesDir) // Used for images
 
 	// API routes
 	r.Route("/api", func(r chi.Router) {
 		r.Get("/poll", handlers.PollImages)
-		
+
 		r.Post("/submit", handlers.SubmitImage)
 
 		r.Post("/reset", handlers.Reset)

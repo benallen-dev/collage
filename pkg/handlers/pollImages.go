@@ -15,7 +15,7 @@ func PollImages(w http.ResponseWriter, r *http.Request) {
 	users := userData.GetUsers()
 
 	sort.Slice(users, func(i, j int) bool {
-		return users[i].Name < users[j].Name
+		return users[i].SessionId < users[j].SessionId
 	})
 
 	// Render the images

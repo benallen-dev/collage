@@ -13,7 +13,7 @@ templ Participant(sessionId string) {
 			</div>
 
 			<div class="border rounded border-stone-400 p-4 my-4">
-			<form id='form' class="overflow-hidden" hx-encoding='multipart/form-data' hx-post='/api/submit' hx-target="#image-current" hx-swap="innerHTML">
+			<form id='form' class="overflow-hidden" hx-encoding='multipart/form-data' hx-post='api/submit' hx-target="#image-current" hx-swap="innerHTML">
 				<input type="hidden" name="sessionId" value={sessionId} />
 				<input class="w-full my-2" required type="file" name="image" />
 				<input class="w-full my-2 p-2" required type="text" name="name" placeholder="Jouw naam" />
