@@ -6,9 +6,8 @@ import (
 
 templ Images(users []data.User) {
 	for _, user := range users {
-
-		<div class="bg-stone-300 rounded-lg overflow-hidden relative">
-			<img class="object-cover h-96 w-full transition-all" src={ user.ImageUrl }></img>
+		<div class="bg-stone-700 rounded-lg overflow-hidden w-full relative flex justify-center items-center">
+			<a href={ templ.SafeURL(user.ImageUrl) } target="_blank"><img class="object-contain w-full transition-all" src={ user.ImageUrl }></img></a>
 			<div class="bg-neutral-800 text-neutral-800 p-2 absolute opacity-50 bottom-0 left-0 w-full">
 				{ user.Name }
 			</div>
@@ -20,5 +19,4 @@ templ Images(users []data.User) {
 			</div>
 		</div>
 	}
-
 }
