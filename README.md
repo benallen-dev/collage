@@ -7,7 +7,7 @@ Presenters can also reset the session.
 
 ## Requirements
 
-You must have [Go templ](https://templ.guide) installed. Templ is used to render jsx-like templates into code that returns HTML. You also need `pnpm` to perform the tailwind build step.
+You must have [Go templ](https://templ.guide) installed. Templ is used to render jsx-like templates into code that returns HTML. You also need `pnpm` (or whatever JS package manager you prefer) to perform the tailwind build step.
 
 ##
 
