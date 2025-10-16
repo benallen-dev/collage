@@ -30,6 +30,7 @@ $ air
 ```
 
 TODO: Add tailwind build step to air
+TODO: Use tailwind cli tool instead of pnpm
 
 ## Simple.css
 
