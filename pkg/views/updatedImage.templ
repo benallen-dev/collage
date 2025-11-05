@@ -1,0 +1,24 @@
+package views
+
+templ UpdatedImage(imageSrc, name string) {
+	<script>
+		function queueRemoval() {
+			const target = document.getElementById("notification")
+			setTimeout(() => {
+				target.classList.add('opacity-0')
+				setTimeout(() => target.remove(), 500)
+			}, 2000)
+		}
+	</script>
+	<div class="flex flex-col gap-2 relative" hx-on::load="queueRemoval()">
+		<div id="notification" class="bg-green-50 text-green-800 my-4 px-4 py-3 rounded-lg border border-green-200 transition-opacity duration-500 absolute w-full z-10">
+			✓ Je foto is bijgewerkt!
+		</div>
+		<div class="bg-stone-700 rounded-lg overflow-hidden max-w-md relative flex flex-col justify-between items-center">
+			<a href={ templ.SafeURL(imageSrc) } target="_blank"><img class="object-contain w-full transition-all" src={ imageSrc } alt={name}></img></a>
+			<div class="text-neutral-50 p-2 pb-3 opacity-100 w-full h-full gap-4">
+				<div>{name}</div>
+			</div>
+		</div>
+	</div>
+}

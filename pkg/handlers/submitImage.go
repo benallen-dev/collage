@@ -1,18 +1,20 @@
 package handlers
 
 import (
-	"strings"
 	"fmt"
 	"io"
 	"log"
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 
+	"github.com/a-h/templ"
 	"github.com/google/uuid"
 
-	"github.com/benallen-dev/collage/pkg/util"
 	"github.com/benallen-dev/collage/pkg/data"
+	"github.com/benallen-dev/collage/pkg/views"
+	"github.com/benallen-dev/collage/pkg/util"
 )
 
 func SubmitImage(w http.ResponseWriter, r *http.Request) {
@@ -88,6 +90,9 @@ func SubmitImage(w http.ResponseWriter, r *http.Request) {
 	
 	userData.UpdateUser(newUser)
 
+	// TODO: make a proper template
 	// Return HTML containing an img tag with the image in it.
-	fmt.Fprintf(w, "<img src=\"%s\" alt=\"%s\" />", imagepath, name)
+
+	templ.Handler(views.UpdatedImage(imagepath, name)).ServeHTTP(w, r)
+	// fmt.Fprintf(w, "<img className=\"max-w-md\" src=\"%s\" alt=\"%s\" />", imagepath, name)
 }
