@@ -1,7 +1,15 @@
 package views
 
 templ Participant(sessionId string) {
-	@base() {
+	@base("Collage") {
+		<script>
+			function updatePreview(file) {
+				const previewImage = document.getElementById('preview')
+
+				previewImage.src = window.URL.createObjectURL(file)
+				previewImage.classList.remove('hidden')
+			}
+		</script>
 		<main>
 			<h1 class="text-2xl font-bold text-stone-100">Upload je foto</h1>
 
@@ -15,7 +23,8 @@ templ Participant(sessionId string) {
 			<div class="border rounded border-stone-400 p-4 my-4">
 			<form id='form' class="overflow-hidden" hx-encoding='multipart/form-data' hx-post='api/submit' hx-target="#image-current" hx-swap="innerHTML">
 				<input type="hidden" name="sessionId" value={sessionId} />
-				<input class="w-full my-2" required type="file" name="image" />
+				<input class="w-full my-2" required type="file" name="image" accept="image/*" onchange="updatePreview(this.files[0])" />
+				<img id="preview" class="hidden mt-4 max-w-md" alt="Voorvertoning van geselecteerde afbeelding" />
 				<input class="w-full my-2 p-2" required type="text" name="name" placeholder="Jouw naam" />
 				<button class="w-full my-2 p-2 rounded bg-lime-500">Verstuur</button>
 			</form>
